@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import API from '../api';
 
 const OrderManagement = () => {
   const { token } = useContext(AuthContext);
@@ -22,7 +23,8 @@ const OrderManagement = () => {
           Authorization: `Bearer ${token}`
         }
       };
-      const res = await axios.get('/api/orders/admin/all', config);
+      
+      const res = await API.get('/api/orders/admin/all', config);
       setOrders(res.data.orders);
     } catch (error) {
       console.error('Error fetching orders:', error);
@@ -38,7 +40,7 @@ const OrderManagement = () => {
           Authorization: `Bearer ${token}`
         }
       };
-      await axios.put(
+      await API.put(
         `/api/orders/${orderId}/status`,
         { orderStatus, paymentStatus },
         config
