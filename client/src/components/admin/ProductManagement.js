@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthContext';
+import API from '../api';
 
 const ProductManagement = () => {
   const { token, user } = useContext(AuthContext);
@@ -32,7 +33,7 @@ const ProductManagement = () => {
 
   const fetchProducts = async () => {
     try {
-      const res = await axios.get('/api/products');
+      const res = await API.get('/api/products');
       setProducts(res.data.products);
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -86,10 +87,10 @@ const ProductManagement = () => {
       };
 
       if (editingProduct) {
-        await axios.put(`/api/products/${editingProduct._id}`, productData, config);
+        await API.put(`/api/products/${editingProduct._id}`, productData, config);
         setMessage({ type: 'success', text: 'Product updated successfully!' });
       } else {
-        await axios.post('/api/products', productData, config);
+        await API.post('/api/products', productData, config);
         setMessage({ type: 'success', text: 'Product created successfully!' });
       }
 
@@ -133,7 +134,7 @@ const ProductManagement = () => {
           Authorization: `Bearer ${token}`
         }
       };
-      await axios.delete(`/api/products/${productId}`, config);
+      await API.delete(`/api/products/${productId}`, config);
       setMessage({ type: 'success', text: 'Product deleted successfully!' });
       fetchProducts();
       setTimeout(() => setMessage({ type: '', text: '' }), 3000);
