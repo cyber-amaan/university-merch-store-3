@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import API from '../api';
 import ProductCard from '../components/ProductCard';
 
 import {
@@ -26,7 +27,7 @@ const Home = () => {
 
   const fetchFeaturedProducts = async () => {
     try {
-      const res = await axios.get('/api/products?sort=newest');
+      const res = await API.get('/api/products?sort=newest');
       setFeaturedProducts(res.data.products.slice(0, 8));
     } catch (error) {
       console.error('Error fetching products:', error);
@@ -111,7 +112,7 @@ const Home = () => {
       <h4 style={styles.footerHeading}>Support</h4>
       <div style={styles.footerItem}>
         <Mail size={16} />
-        <span>support@nuu.uz</span>
+        <span>s.shavkat@newuu.uz</span>
       </div>
       <div style={styles.footerItem}>
         <Phone size={16} />
@@ -133,7 +134,7 @@ const Home = () => {
   </div>
 
   <div style={styles.footerBottom}>
-    © {new Date().getFullYear()} NewUU Merch by CyberAmaan. All rights reserved.
+    © {new Date().getFullYear()} NewUU Merch by UniMerch Team. All rights reserved.
   </div>
 </footer>
     </div>
